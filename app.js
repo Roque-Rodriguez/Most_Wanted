@@ -41,7 +41,8 @@ function searchPeopleDataSet(people) {
             break;
         case 'traits':
             //! TODO
-            // results = searchByTraits(people);
+            results = searchByTraits(people);
+            secResults = secondaryTrait(people);
             break;
         default:
             return searchPeopleDataSet(people);
@@ -64,10 +65,85 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 
+
+function searchByTraits(people) {
+    
+    const userInput = prompt("Enter a trait: "); 
+    const userChoice = prompt(`Please enter the ${userInput}`);
+    let searchResults = []
+    switch(userInput){
+        case "lastname":
+           searchResults = people.filter(person => (person.lastName.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "firstname":
+           searchResults = people.filter(person => (person.firstName.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "gender":
+           searchResults = people.filter(person => (person.gender.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "eyecolor":
+           searchResults = people.filter(person => (person.eyeColor.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "occupation":
+           searchResults = people.filter(person => (person.occupation.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "dob":
+           searchResults = people.filter(person => (person.dob.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "height":
+           searchResults = people.filter(person => (person.height.toString()  === userChoice.toLowerCase()))
+           break;
+        case "weight":
+           searchResults = people.filter(person => (person.weight.toString()  === userChoice.toLowerCase()))
+           break;
+        
+        
+    
+    }
+return
+}
+
+function secondaryTrait(searchResults){
+     const userInput = prompt("Enter another trait: "); 
+     const userChoice = prompt(`Please enter the ${userInput}`);
+    
+    switch(userInput){
+        case "lastname":
+           searchResults = people.filter(person => (person.lastName.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "firstname":
+           searchResults = people.filter(person => (person.firstName.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "gender":
+           searchResults = people.filter(person => (person.gender.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "eyecolor":
+           searchResults = people.filter(person => (person.eyeColor.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "occupation":
+          searchResults = people.filter(person => (person.occupation.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "dob":
+           searchResults = people.filter(person => (person.dob.toLowerCase()  === userChoice.toLowerCase()))
+           break;
+        case "height":
+           searchResults = people.filter(person => (person.height.toString()  === userChoice.toLowerCase()))
+           break;
+        case "weight":
+           searchResults = people.filter(person => (person.weight.toString()  === userChoice.toLowerCase()))
+           break;
+    }
+    return
+}
+
+
+
+
+
 function mainMenu(person, people) {
 
     const mainMenuUserActionChoice = validatedPrompt(
-        `Person: ${person.firstName} ${person.lastName}\n\nDo you want to know their full information, family, or descendants?`,
+     `Person: ${person.firstName} ${person.lastName}\n\nDo you want to know their full information, family, or descendants?`,
         ['info', 'family', 'descendants', 'quit']
     );
 
