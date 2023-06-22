@@ -41,8 +41,8 @@ function searchPeopleDataSet(people) {
             break;
         case 'traits':
             //! TODO
-            results = searchByTraits(people);
-            secResults = secondaryTrait(people);
+            filteredResults = searchByTraits(people); //expected 2 objects
+            results = secondaryTrait(filteredResults, people);
             break;
         default:
             return searchPeopleDataSet(people);
@@ -70,43 +70,43 @@ function searchByTraits(people) {
     
     const userInput = prompt("Enter a trait: "); 
     const userChoice = prompt(`Please enter the ${userInput}`);
-    let searchResults = []
+    let filteredResults = []
     switch(userInput){
         case "lastname":
-           searchResults = people.filter(person => (person.lastName.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.lastName.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "firstname":
-           searchResults = people.filter(person => (person.firstName.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.firstName.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "gender":
-           searchResults = people.filter(person => (person.gender.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.gender.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "eyecolor":
-           searchResults = people.filter(person => (person.eyeColor.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.eyeColor.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "occupation":
-           searchResults = people.filter(person => (person.occupation.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.occupation.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "dob":
-           searchResults = people.filter(person => (person.dob.toLowerCase()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.dob.toLowerCase()  === userChoice.toLowerCase()))
            break;
         case "height":
-           searchResults = people.filter(person => (person.height.toString()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.height.toString()  === userChoice.toLowerCase()))
            break;
         case "weight":
-           searchResults = people.filter(person => (person.weight.toString()  === userChoice.toLowerCase()))
+           filteredResults = people.filter(person => (person.weight.toString()  === userChoice.toLowerCase()))
            break;
         
         
-    
-    }
-return
+           
+        }
+        return filteredResults;
 }
 
-function secondaryTrait(searchResults){
+function secondaryTrait(people){
      const userInput = prompt("Enter another trait: "); 
      const userChoice = prompt(`Please enter the ${userInput}`);
-    
+    let searchResults = []
     switch(userInput){
         case "lastname":
            searchResults = people.filter(person => (person.lastName.toLowerCase()  === userChoice.toLowerCase()))
@@ -133,7 +133,7 @@ function secondaryTrait(searchResults){
            searchResults = people.filter(person => (person.weight.toString()  === userChoice.toLowerCase()))
            break;
     }
-    return
+    return searchResults;
 }
 
 
