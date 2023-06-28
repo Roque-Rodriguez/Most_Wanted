@@ -42,7 +42,8 @@ function searchPeopleDataSet(people) {
         case 'traits':
             //! TODO
             filteredResults = searchByTraits(people); //expected 2 objects
-            results = secondaryTrait(filteredResults, people);
+            results = addTrait(filteredResults,people)
+           // results = secondaryTrait(filteredResults, people);
             break;
         default:
             return searchPeopleDataSet(people);
@@ -102,6 +103,19 @@ function searchByTraits(people) {
         }
         return filteredResults;
 }
+
+function addTrait() {
+  var userInput = prompt("Would you like to add another trait? (yes/no)");
+  if (userInput.toLowerCase() === "yes") {
+   results = secondaryTrait(filteredResults);
+   return results
+    
+  } else {
+    // Return the results of the previous function
+    return filteredResults;
+  }
+}
+
 
 function secondaryTrait(people){
      const userInput = prompt("Enter another trait: "); 
