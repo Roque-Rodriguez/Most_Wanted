@@ -164,17 +164,17 @@ function mainMenu(person, people) {
     switch (mainMenuUserActionChoice) {
         case "info":
             //! TODO
-            // displayPersonInfo(person);
+            displayPersonInfo(person);
             break;
         case "family":
-            //! TODO
-            // let personFamily = findPersonFamily(person, people);
-            // displayPeople('Family', personFamily);
+            let personFamily = findPersonFamily(person, people);
+            displayPeople(personFamily);
+            
             break;
         case "descendants":
-            //! TODO
-            // let personDescendants = findPersonDescendants(person, people);
-            // displayPeople('Descendants', personDescendants);
+           
+            let personDescendants = findPersonDescendants(person, people);
+            displayPeople('Descendants', personDescendants);
             break;
         case "quit":
             return;
@@ -184,6 +184,7 @@ function mainMenu(person, people) {
 
     return mainMenu(person, people);
 }
+
 
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
@@ -204,6 +205,64 @@ function validatedPrompt(message, acceptableAnswers) {
         alert(`"${userResponse}" is not an acceptable response. The acceptable responses include:\n${acceptableAnswers.map(aa => `\n-> ${aa}`).join('')} \n\nPlease try again.`);
         return validatedPrompt(message, acceptableAnswers);
     }
+}
+
+function displayPersonInfo(person) {
+  let info = `ID: ${person.id}\n` +
+             `First Name: ${person.firstName}\n` +
+             `Last Name: ${person.lastName}\n` +
+             `Gender: ${person.gender}\n` +
+             `Date of Birth: ${person.dob}\n` +
+             `Height: ${person.height}\n` +
+             `Weight: ${person.weight}\n` +
+             `Eye Color: ${person.eyecolor}\n` +
+             `Occupation: ${person.occupation}\n` +
+             `Parents: ${person.parents}\n` +
+             `Current Spouse: ${person.currentSpouse}`;
+}
+
+function findPersonFamily(person) {
+  let message = '';
+
+  
+  if (Array.isArray(person.parents) && person.parents.length > 0) {
+    message += 'Parents: ' + person.parents.join(', ') + '\n';
+  } else {
+    message += 'No parents found.\n';
+  }
+ if (person.currentSpouse) {
+    message += 'Spouse: ' + person.currentSpouse + '\n';   
+  } else {
+    message += 'No spouse found.\n';
+  }
+
+
+  alert(message);
+}
+
+
+function findPersonDescendants(person, people) {
+  let descendants = [];
+
+ 
+  if (person.parents.length > 0) {
+    
+    person.parents.forEach(parentId => {  //.forEach goes thru the array indexing each one by one and then does something with it.
+      
+      const parent = people.find(p => p.id === parentId);//.find searches for a specific condition
+
+     
+      if (parent) {
+        const parentDescendants = findPersonDescendants(parent, people);
+
+        
+        descendants = descendants.concat(parentDescendants);//concat joins 2 arrays. in this instance original array and parents array.
+      }
+    });
+  }
+
+  
+  return [person].concat(descendants);
 }
 
 function exitOrRestart(people) {
