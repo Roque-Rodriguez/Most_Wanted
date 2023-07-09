@@ -168,7 +168,7 @@ function mainMenu(person, people) {
             break;
         case "family":
             let personFamily = findPersonFamily(person, people);
-            displayPeople(personFamily);
+           
             
             break;
         case "descendants":
@@ -219,9 +219,10 @@ function displayPersonInfo(person) {
              `Occupation: ${person.occupation}\n` +
              `Parents: ${person.parents}\n` +
              `Current Spouse: ${person.currentSpouse}`;
+    alert(info)
 }
 
-function findPersonFamily(person) {
+function findPersonFamily(person, people) {
   let message = '';
 
   
@@ -235,35 +236,61 @@ function findPersonFamily(person) {
   } else {
     message += 'No spouse found.\n';
   }
+  if (person.parents && person.parents.length > 0) {
+    const siblings = [];
 
+    person.parents.forEach(parent => {
+      const personSiblings = people.filter(p => p.parents && p.parents.includes(parent));
 
-  alert(message);
+      personSiblings.forEach(sibling => {
+        if (sibling !== person) {
+          siblings.push(sibling);
+        }
+      });
+    });
+
+    if (siblings.length > 0) {
+      message += 'Siblings:\n';
+      siblings.forEach(sibling => {
+        message += 'First Name: ' + sibling.firstName + ', Last Name: ' + sibling.lastName + '\n';
+      });
+    } else {
+      message += 'No siblings found.\n';
+    }
+}  
+    alert(message);
 }
+
 
 
 function findPersonDescendants(person, people) {
-  let descendants = [];
+ let message = '';
+  if (person.parents && person.parents.length > 0) {
+    const siblings = [];
 
- 
-  if (person.parents.length > 0) {
-    
-    person.parents.forEach(parentId => {  //.forEach goes thru the array indexing each one by one and then does something with it.
-      
-      const parent = people.find(p => p.id === parentId);//.find searches for a specific condition
+    person.parents.forEach(parent => {
+      const personSiblings = people.filter(p => p.parents && p.parents.includes(parent));
 
-     
-      if (parent) {
-        const parentDescendants = findPersonDescendants(parent, people);
-
-        
-        descendants = descendants.concat(parentDescendants);//concat joins 2 arrays. in this instance original array and parents array.
-      }
+      personSiblings.forEach(sibling => {
+        if (sibling !== person) {
+          siblings.push(sibling);
+        }
+      });
     });
-  }
 
-  
-  return [person].concat(descendants);
+    if (siblings.length > 0) {
+      message += 'Siblings:\n';
+      siblings.forEach(sibling => {
+        message += 'First Name: ' + sibling.firstName + ', Last Name: ' + sibling.lastName + '\n';
+      });
+    } else {
+      message += 'No siblings found.\n';
+    }
+}  
+    alert(message);
 }
+
+
 
 function exitOrRestart(people) {
     const userExitOrRestartChoice = validatedPrompt(
