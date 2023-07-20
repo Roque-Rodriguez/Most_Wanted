@@ -111,7 +111,7 @@ function addTrait() {
    return results
     
   } else {
-    // Return the results of the previous function
+    
     return filteredResults;
   }
 }
