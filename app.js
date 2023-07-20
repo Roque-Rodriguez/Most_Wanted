@@ -163,7 +163,7 @@ function mainMenu(person, people) {
 
     switch (mainMenuUserActionChoice) {
         case "info":
-            //! TODO
+            
             displayPersonInfo(person);
             break;
         case "family":
