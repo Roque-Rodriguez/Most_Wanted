@@ -264,31 +264,32 @@ function findPersonFamily(person, people) {
 
 
 function findPersonDescendants(person, people) {
- let message = '';
-  if (person.parents && person.parents.length > 0) {
-    const siblings = [];
+  let message = '';
+  const descendants = [];
 
-    person.parents.forEach(parent => {
-      const personSiblings = people.filter(p => p.parents && p.parents.includes(parent));
+  function findDescendants(currentPerson) {
+    const children = people.filter(p => p.parents && p.parents.includes(currentPerson.id));
 
-      personSiblings.forEach(sibling => {
-        if (sibling !== person) {
-          siblings.push(sibling);
-        }
-      });
+    children.forEach(child => {
+      descendants.push(child);
+      findDescendants(child);
     });
+  }
 
-    if (siblings.length > 0) {
-      message += 'Siblings:\n';
-      siblings.forEach(sibling => {
-        message += 'First Name: ' + sibling.firstName + ', Last Name: ' + sibling.lastName + '\n';
-      });
-    } else {
-      message += 'No siblings found.\n';
-    }
-}  
-    alert(message);
+  findDescendants(person);
+
+  if (descendants.length > 0) {
+    message += 'Descendants:\n';
+    descendants.forEach(descendant => {
+      message += 'First Name: ' + descendant.firstName + ', Last Name: ' + descendant.lastName + '\n';
+    });
+  } else {
+    message += 'No descendants found.\n';
+  }
+
+  alert(message);
 }
+
 
 
 
