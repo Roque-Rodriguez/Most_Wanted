@@ -41,9 +41,9 @@ function searchPeopleDataSet(people) {
             break;
         case 'traits':
             //! TODO
-            filteredResults = searchByTraits(people); //expected 2 objects
+            filteredResults = searchByTraits(people); 
             results = addTrait(filteredResults,people)
-           // results = secondaryTrait(filteredResults, people);
+           
             break;
         default:
             return searchPeopleDataSet(people);
