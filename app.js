@@ -40,7 +40,7 @@ function searchPeopleDataSet(people) {
             results = searchByName(people);
             break;
         case 'traits':
-            //! TODO
+            
             filteredResults = searchByTraits(people); 
             results = addTrait(filteredResults,people)
            
